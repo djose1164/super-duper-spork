@@ -1,0 +1,37 @@
+#:kivy 1.11.1
+
+<AddLocationForm>:
+    search_input: search_box
+    id_rv: rv
+    orientation: "vertical"
+    BoxLayout:
+        height: "40dp"  # 1
+        size_hint_y: None
+        TextInput:
+            id: search_box
+            size_hint_x: 50  # 2
+        Button:
+            text: "Search"
+            size_hint_x: 25  # 3
+            on_press: root.search_location()
+        Button:
+            text: "Current Location"
+            size_hint_x: 25  # 4
+    RecycleView:
+        viewclass: "Label"
+        id: rv
+        scroll_type: ['bars', 'content']
+        #scroll_wheel_distance: dp(114)
+        bar_width: dp(10)
+        #data: []
+        RecycleBoxLayout:
+            id: controller
+            #key_selection: 'selectable'
+            #default_size: None, dp(56)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: 'vertical'
+            #multiselect: True
+            #touch_multiselect: True
+            spacing: dp(1)
