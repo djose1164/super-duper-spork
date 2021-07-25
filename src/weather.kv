@@ -10,6 +10,9 @@
         TextInput:
             id: search_box
             size_hint_x: 50  # 2
+            focus: True
+            multiline: False
+            on_text_validate: root.search_location()
         Button:
             text: "Search"
             size_hint_x: 25  # 3
@@ -20,14 +23,13 @@
     RecycleView:
         viewclass: "Label"
         id: rv
-        scroll_type: ['bars', 'content']
+        #scroll_type: ['bars', 'content']
         #scroll_wheel_distance: dp(114)
         bar_width: dp(10)
-        #data: []
         RecycleBoxLayout:
             id: controller
             #key_selection: 'selectable'
-            #default_size: None, dp(56)
+            default_size: None, dp(56)
             default_size_hint: 1, None
             size_hint_y: None
             height: self.minimum_height
