@@ -1,4 +1,10 @@
 #:kivy 1.11.1
+#:import main main
+
+WeatherRoot:
+
+<WeatherRoot>:
+    AddLocationForm:
 
 <AddLocationForm>:
     search_input: search_box
@@ -21,8 +27,8 @@
             text: "Current Location"
             size_hint_x: 25  # 4
     RecycleView:
-        viewclass: "Label"
         id: rv
+        viewclass: "LocationButton"
         #scroll_type: ['bars', 'content']
         #scroll_wheel_distance: dp(114)
         bar_width: dp(10)
@@ -37,3 +43,7 @@
             #multiselect: True
             #touch_multiselect: True
             spacing: dp(1)
+
+<LocationButton>:
+    on_release:
+        app.root.weather_root.show_current_weather(self.text)

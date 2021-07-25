@@ -3,18 +3,30 @@ from urllib.parse import quote_plus
 
 import kivy
 from kivy.app import App
-from kivy.uix.recycleview import RecycleView
+from kivy.core import text
+from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 from kivy.network.urlrequest import UrlRequest
 
 kivy.require("1.11.1")
 
 
+class LocationButton(Button):
+    pass
+
+class WeatherRoot(BoxLayout):
+    def show_current_weather(self, location):
+        from kivy.uix.label import Label
+
+        app.root.clear_widgets()
+        app.root.add_widget(Label(text=location))
+
 class AddLocationForm(BoxLayout):
     search_input = ObjectProperty()
     id_rv = ObjectProperty()
-
+    weather_root = WeatherRoot()
     def search_location(self):
         """
         Search for the given location through all available locations in OpenWeather.
@@ -27,12 +39,8 @@ class AddLocationForm(BoxLayout):
         api_key = "&type=like&APPID=7b6e61038914b2c13915adcb9087ce7d"
         # The above variables together to make the complete search request.
         search_url = base_url + quote_plus(place_to_search) + api_key
-        print(search_url)
         # Make the request to OpenWeatherMap
         self.request = UrlRequest(search_url, self.found_location)
-        print(
-            f"## search_location (type: {type(self.request)}\t data: {self.request.result}"
-        )
 
     def found_location(self, request, data, *args):
         """
@@ -52,6 +60,9 @@ class AddLocationForm(BoxLayout):
         self.id_rv.data = [{"text": item} for item in cities]
 
 
+
+
+
 class WeatherApp(App):
     def build(self):
         return AddLocationForm()
@@ -59,4 +70,5 @@ class WeatherApp(App):
 
 if __name__ == "__main__":
     app = WeatherApp()
+    print("# app: ", app.root.__class__)
     app.run()
