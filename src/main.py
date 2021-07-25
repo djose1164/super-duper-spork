@@ -1,9 +1,6 @@
-import kivy
 import json
-import time
-from os import system
+import kivy
 from kivy.app import App
-
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
@@ -46,7 +43,6 @@ class AddLocationForm(BoxLayout):
     def search_location(self):
         """
         Search for the given location throut all available locations in OpenWeater.
-
         """
         # The URL's base.
         base_url = "http://api.openweathermap.org/data/2.5/weather"
